@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Users</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background-color: #f3f4f6;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+    }
+    tr:hover {
+      background-color: #f9fafb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header and Add Button -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">User List</h1>
+      <a href="/users/new" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        ➕ Add New User
+      </a>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(user of users) { %>
+          <tr>
+            <td class="font-medium"><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.username %></td>
+            <td>
+              <div class="flex space-x-2">
+                <!-- Edit Button -->
+                <form action="/users/<%= user.id %>/edit" method="GET">
+                  <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200">
+                    Edit
+                  </button>
+                </form>
+
+                <!-- Delete Button -->
+                <form action="/users/<%= user.id %>/delete" method="GET">
+                  <button class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-200">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
